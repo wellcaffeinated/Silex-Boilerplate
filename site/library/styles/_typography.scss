@@ -1,0 +1,55 @@
+//
+// Typography presets
+//
+
+@import "compass/typography/vertical_rhythm";
+ 
+$base-font-size: 16px;
+$base-line-height: 18px;
+$relative-font-sizing: true;
+
+// debugging baseline
+// @import "compass/layout/grid-background";
+// body {
+//     @include baseline-grid-background($base-line-height, rgba(0, 0, 0, 0.2)); 
+// }
+
+
+@include establish-baseline;
+
+
+// typography
+
+h1 {
+    @include adjust-font-size-to(2.61538 * $base-font-size);
+    margin: rhythm(1) 0;
+}
+
+h2 {
+    @include adjust-font-size-to(1.61538 * $base-font-size);
+    margin: rhythm(1) 0;
+}
+
+h3,
+h4,
+h5,
+h6 {
+    @include adjust-font-size-to(1 * $base-font-size);
+    margin: rhythm(1) 0;
+}
+
+p, ul, ol {
+    margin: rhythm(1) 0;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+ol {
+    list-style-type: decimal;
+}
+
+ul, ol {
+    margin-left: 1.25em;
+}

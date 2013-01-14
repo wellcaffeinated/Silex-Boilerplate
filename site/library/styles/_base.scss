@@ -1,0 +1,21 @@
+//
+// Base file imported into site scss files
+// @see http://compass-style.org/help/tutorials/best_practices/
+//
+
+//
+// Variables
+//
+
+$white: #fff;
+
+//
+// Imports
+//
+
+@import "compass/reset";
+@import "compass/css3";
+@import "_typography";
+@import "_mixins";
+@import "_layout";
+

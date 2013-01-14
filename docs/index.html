@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<title>Documentation</title>
+
+<style>
+.container {
+    max-width: 800px;
+}
+</style>
+
+<xmp theme="united" style="display:none;">
+
+# Overview
+
+## Quick reference
+
+Silex Setup
+
+    $ cd path/to/site
+    $ php -d detect_unicode=Off composer.phar install
+
+Silex after adding dependency to composer.json
+
+    $ cd path/to/site
+    $ php -d detect_unicode=Off composer.phar update
+
+GIT workflow
+
+    $ git pull
+    $ git add -A
+    $ git status
+    $ git commit -m 'your message'
+    $ git push origin master
+
+SASS
+
+    $ cd path/to/library/styles
+    $ compass watch
+
+JS Build
+    
+    $ cd path/to/library/js
+    $ r.js -o require-build.js
+
+
+## PHP
+
+Server-side scripting is done with php leveraging the [Silex Microframework](silex.sensiolabs.org/documentation). All server-side code is kept in the `app/` dir, and uses the [Composer autoloading feature](http://getcomposer.org/doc/01-basic-usage.md#autoloading).
+
+* Composer Documentation: http://getcomposer.org/
+* Composer Autoloading: http://getcomposer.org/doc/01-basic-usage.md#autoloading
+* Silex Documentation: http://silex.sensiolabs.org/documentation
+
+## HTML and Server-Side Assets
+
+All server-side assets are found in the `assets/` dir. Markup is served through template files which have a `.twig.html` extension found in `assets/templates/`. Leverage the [TWIG templating system](http://twig.sensiolabs.org/documentation) to facilitate code reuse and readability.
+
+* Twig templating docs: http://twig.sensiolabs.org/documentation
+
+
+## CSS (using Compass/SCSS)
+
+The stylesheets are compiled from `.scss` files using [Compass](http://compass-style.org/reference/compass/). Please consult the Compass documentation for [best practices](http://compass-style.org/help/tutorials/best_practices/).
+
+* Compass best practices: http://compass-style.org/help/tutorials/best_practices/
+* Compass core reference: http://compass-style.org/reference/compass/
+
+
+## JavaScript (RequireJS/AMD)
+
+The JS architecture is constructed to use [RequireJS](http://requirejs.org). All javascript code will be loaded from a single script declaration (except modernizr). The starting point for any given page is a **mediator** tasked with overseeing that page. **Modules** will be loaded and used by the mediator to provide functionality.
+
+* RequireJS config options: http://requirejs.org/docs/api.html#config
+* All r.js build options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
+
+
+
+# Coding Standards
+
+## Indentation
+
+Intentation is 4 spaces. Not tabs.
+
+
+## Filenames
+
+**Filenames** are dash-separated. Examples:
+
+    page-front.twig.html
+    boot-index.js
+
+with the exception of SCSS files which can begin with an underscore if they are import-only files. Example:
+    
+    front-page.scss is compiled into CSS
+    _mixins.scss is not compiled, but instead imported into other scss files
+
+**Image files** should start with descriptors like "bg-", "icon-", "sprite-", "text-" to help describe what they are for.
+
+
+## HTML Attributes (IDs, Class Names, etc...)
+
+These should be dash-separated. Example:
+
+    <div id="very-specific" class="utility-cls layout-cls"></div>
+
+
+## Variable Names
+
+Variable names (in SCSS and JavaScript) should be camelCase. Example:
+
+    function doBarrelRoll( howHigh ){
+
+        // magic...
+    }
+
+
+## (S)CSS
+
+SCSS blocks should resemble:
+
+    .fixie-bike {
+        color: $hipsterGreen;
+    }
+
+and **NOT**:
+    
+    .badSelector{ content: 'is unreadable'; }
+
+
+## JavaScript
+
+Think about optimization: http://wellcaffeinated.net/articles/2012/09/07/your-javascript-is-slow-common-and-not-so-common-optimizations/
+
+Don't use global variables (with the exception of `window`).
+
+Place code in [AMD Modules](http://requirejs.org/docs/whyamd.html) for reuse, and follow the following structure for a define statement: 
+
+    define(
+        [
+            'jquery',
+            'path/to/dependency'
+        ],
+        function(
+            $,
+            dependencyName
+        ){
+        
+            function doBarrelRoll( howHigh ){
+
+                // magic...
+                dependencyName.jump( howHigh );
+                dependencyName.flipZ( 360 );
+            }
+    
+            // return an API
+            return {
+
+                doBarrelRoll: doBarrelRoll
+            };
+        }
+    );
+
+OR
+
+    define(
+        [
+            'jquery',
+            'path/to/dependency'
+        ],
+        function(
+            $,
+            dependencyName
+        ){
+
+            var defaults = {
+
+                superSizeThat: true
+            };
+    
+            function Module( cfg ){
+
+                this.options = $.extend({}, defaults, cfg);
+                this.init();
+            }
+
+            Module.prototype = {
+
+                init: function(){
+
+                    // magic...
+                }
+            };
+    
+            // return a factory
+            return function( cfg ){
+                
+                return new Module( cfg );
+            };
+        }
+    );
+
+
+# Documentation
+
+Document your code!
+
+## SCSS
+
+    //
+    // Doc block...
+    //
+    .some-selector {
+        // ...
+    }
+
+## JavaScript
+
+    /**
+     * Doc block
+     * @param  {[type]} msg [description]
+     * @return {[type]}     [description]
+     */
+    function someFn(){
+        // ...
+    }
+
+</xmp>
+
+<script src="http://strapdownjs.com/v/0.1/strapdown.js"></script>
+</html>
