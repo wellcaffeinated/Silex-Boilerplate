@@ -1,3 +1,4 @@
 site/vendor/*
 site/app/logs/*
 site/library/styles/.sass-cache/*
+site/composer.lock
